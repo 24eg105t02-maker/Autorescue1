@@ -40,6 +40,6 @@ databases:
   # Managed PostgreSQL Database
   - name: autorescue-db
     databaseName: autorescue
-    user: postgres
+    user: autorescue_user
     plan: free
     region: oregon
