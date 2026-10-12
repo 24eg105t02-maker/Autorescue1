@@ -1,5 +1,5 @@
 services:
-  # Spring Boot Java 21 Backend
+  # Spring Boot Java 21 Backend Web Service
   - type: web
     name: autorescue-backend
     runtime: docker
@@ -8,18 +8,10 @@ services:
     plan: free
     region: oregon
     envVars:
-      - key: SPRING_DATASOURCE_URL
+      - key: DATABASE_URL
         fromDatabase:
           name: autorescue-db
           property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: autorescue-db
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: autorescue-db
-          property: password
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ALLOWED_ORIGINS
@@ -45,7 +37,7 @@ services:
           property: host
 
 databases:
-  # Managed PostgreSQL 17 Database
+  # Managed PostgreSQL Database
   - name: autorescue-db
     databaseName: autorescue
     user: postgres
