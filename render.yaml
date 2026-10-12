@@ -1,0 +1,53 @@
+services:
+  # Spring Boot Java 21 Backend
+  - type: web
+    name: autorescue-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: oregon
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: autorescue-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: autorescue-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: autorescue-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ALLOWED_ORIGINS
+        value: "*"
+
+  # React Vite Frontend (Static Site)
+  - type: web
+    name: autorescue-frontend
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    plan: free
+    region: oregon
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: autorescue-backend
+          property: host
+
+databases:
+  # Managed PostgreSQL 17 Database
+  - name: autorescue-db
+    databaseName: autorescue
+    user: postgres
+    plan: free
+    region: oregon
