@@ -1,5 +1,7 @@
 # AutoRescue — AI-Powered Roadside Assistance Platform
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/24eg105t02-maker/Autorescue1)
+
 **AutoRescue** is a complete, full-stack Java 21 + Spring Boot 3 + React (Vite + TypeScript + Tailwind CSS) + PostgreSQL web application that connects stranded vehicle owners with verified towing operators, EV roadside specialists, and mobile mechanics.
 
 ---
