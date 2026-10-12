@@ -29,10 +29,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: autorescue-backend
-          property: host
+        value: https://autorescue-backend-koso.onrender.com/api
 
 databases:
   # Managed PostgreSQL Database

@@ -1,6 +1,19 @@
 import axios from 'axios';
 
-let rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '/api';
+let rawBaseUrl = import.meta.env.VITE_API_BASE_URL || '';
+
+if (rawBaseUrl && !rawBaseUrl.includes('.') && !rawBaseUrl.startsWith('/') && !rawBaseUrl.startsWith('http')) {
+  rawBaseUrl = `https://${rawBaseUrl}.onrender.com`;
+}
+
+if (!rawBaseUrl || rawBaseUrl === '/api') {
+  if (typeof window !== 'undefined' && window.location.hostname.includes('render.com')) {
+    rawBaseUrl = 'https://autorescue-backend-koso.onrender.com';
+  } else {
+    rawBaseUrl = '/api';
+  }
+}
+
 if (rawBaseUrl && !rawBaseUrl.startsWith('http://') && !rawBaseUrl.startsWith('https://') && !rawBaseUrl.startsWith('/')) {
   rawBaseUrl = `https://${rawBaseUrl}`;
 }
