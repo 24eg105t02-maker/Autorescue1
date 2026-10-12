@@ -70,3 +70,6 @@ backend/uploads/
 Thumbs.db
 
 *.tsbuildinfo
+
+push_to_github.bat
+*.bat
